@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The workshop: a board for a crew of Claude Code agents</title>
+<meta name="description" content="A board that shows a crew of Claude Code agents: one craft each, XP from an append-only log, levels and ranks computed, hand-offs between crafts, and a pop-up when someone reaches a new rank. Invented data.">
+<!--
+  This file is the TEMPLATE. docs/index.html is generated from it by generate.py:
+  never edit docs/index.html by hand. Two tokens are replaced, and each must
+  appear exactly once in this file (generate.py refuses to build otherwise):
+    the data token, inside the board-data script tag   -> the JSON payload
+    the text-version comment, inside #text             -> plain HTML that works with JavaScript off
+  No CDN, no web fonts, no network: the page is one self-contained file.
+-->
+<style>
+  :root{
+    --ground:#F1F2F4; --ink:#15171C; --acc:#6A4CF5; --tint:#DCD4FF;
+    --ink2:#3D424C; --ink3:#5F6672; --line:#C9CCD3; --card:#fff;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,Roboto,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans)}
+  body{font-size:15px;line-height:1.45}
+  main{max-width:1120px;margin:0 auto;padding:28px 20px 12px}
+  .kicker{font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3)}
+  h1{font-size:32px;line-height:1.12;margin:6px 0 6px;letter-spacing:-.015em}
+  h1 em{font-style:normal;color:var(--acc)}
+  .sub{color:var(--ink2);margin:0 0 18px;max-width:720px}
+  .sub code{font-family:var(--mono);font-size:13.5px;color:var(--ink)}
+  h2{font-size:20px;margin:30px 0 4px}
+  .box{background:var(--card);border:2.5px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink)}
+
+  /* waiting rank-ups */
+  #waiting{display:none;margin:0 0 16px;padding:10px 14px;align-items:center;gap:12px;flex-wrap:wrap;background:var(--tint)}
+  #waiting.on{display:flex}
+  #waiting b{font-size:15px}
+  .btn{font:inherit;font-weight:800;font-size:14px;border:2.5px solid var(--ink);border-radius:8px;background:var(--acc);color:#fff;padding:6px 12px;cursor:pointer;box-shadow:2px 2px 0 var(--ink)}
+  .btn:active{transform:translate(2px,2px);box-shadow:none}
+  .btn.ghost{background:#fff;color:var(--ink)}
+
+  /* the Lead */
+  .lead{display:flex;gap:20px;align-items:center;padding:18px 20px;flex-wrap:wrap}
+  .lead .glyph{width:92px;height:92px;flex:0 0 92px}
+  .lead .who{flex:1 1 300px;min-width:0}
+  .lead h2{margin:0;font-size:24px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .lead .math{font-size:13.5px;color:var(--ink2);margin-top:6px}
+  .lead .math code{font-family:var(--mono);font-size:13px;color:var(--ink);background:var(--ground);padding:1px 5px;border-radius:4px}
+
+  .rank{display:inline-block;font-size:11.5px;font-weight:850;letter-spacing:.06em;text-transform:uppercase;border:2px solid var(--ink);border-radius:999px;padding:1px 9px;background:#fff;color:var(--ink);white-space:nowrap}
+  .rank.r2{background:var(--tint)}
+  .rank.r3{background:var(--acc);color:#fff}
+  .rank.r4{background:var(--ink);color:#fff}
+  .lvl{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-top:10px;font-size:14px}
+  .lvl b{font-size:17px}
+  .lvl span{color:var(--ink2);font-variant-numeric:tabular-nums}
+  .bar{height:12px;border:2px solid var(--ink);border-radius:999px;background:var(--ground);overflow:hidden;margin-top:5px}
+  .bar i{display:block;height:100%;background:var(--acc);border-right:2px solid var(--ink)}
+  .next{font-size:12.5px;color:var(--ink3);margin-top:4px}
+  .pips{display:flex;gap:4px;margin:8px 0 0;padding:0;list-style:none}
+  .pips li{flex:1;height:6px;border-radius:3px;background:var(--line)}
+  .pips li.on{background:var(--ink)}
+
+  /* crew cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-top:12px}
+  .card{padding:14px 16px 12px;display:flex;flex-direction:column}
+  .card .top{display:flex;gap:12px;align-items:center}
+  .card .glyph{width:52px;height:52px;flex:0 0 52px}
+  .card h3{margin:0;font-size:18px}
+  .card .craft{font-size:12.5px;color:var(--ink3)}
+  .card .craft code{font-family:var(--mono);font-size:12px}
+  .card .top .rank{margin-left:auto}
+  .card .does{margin:10px 0 0;font-size:13.5px;color:var(--ink2);min-height:2.9em}
+  .awards{list-style:none;padding:0;margin:10px 0 0;border-top:1.5px dashed var(--line);padding-top:8px}
+  .awards li{display:grid;grid-template-columns:48px 1fr;gap:6px;font-size:12.5px;line-height:1.35;color:var(--ink2);margin-bottom:4px}
+  .awards b{font-family:var(--mono);color:var(--acc);font-size:12.5px}
+  .awards time{color:var(--ink3);white-space:nowrap}
+  .card .foot{margin-top:auto;padding-top:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--ink3);flex-wrap:wrap}
+  .link{font:inherit;font-size:12.5px;font-weight:750;background:none;border:0;padding:0;color:var(--ink);text-decoration:underline;text-decoration-color:var(--acc);text-decoration-thickness:2px;text-underline-offset:3px;cursor:pointer}
+
+  /* hand-offs */
+  .handoffs{padding:16px 18px;margin-top:12px}
+  .handoffs .note{font-size:13px;color:var(--ink3);margin:0 0 12px}
+  .pairs{display:flex;flex-wrap:wrap;gap:8px}
+  .pair{display:flex;align-items:center;gap:6px;border:2px solid var(--ink);border-radius:999px;padding:3px 10px 3px 4px;background:#fff;font-size:13px;font-weight:700}
+  .pair svg{width:26px;height:26px}
+  .pair .arrow{color:var(--acc);font-weight:900}
+  .pair .n{font-family:var(--mono);font-weight:800;background:var(--tint);border-radius:999px;padding:0 7px;margin-left:2px}
+  .recent{list-style:none;padding:0;margin:14px 0 0;font-size:13px}
+  .recent li{display:grid;grid-template-columns:72px minmax(0,190px) 1fr;gap:10px;padding:5px 0;border-top:1.5px dashed var(--line);color:var(--ink2)}
+  .recent time{color:var(--ink3)}
+  .recent b{color:var(--ink)}
+
+  /* the reveal pop-up: CSS keyframes only, so it never depends on a timer loop */
+  #reveal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(21,23,28,.55);z-index:10}
+  #reveal.on{display:flex}
+  .rv{position:relative;width:min(420px,100%);padding:26px 22px 20px;text-align:center;overflow:hidden;animation:rv-pop .55s cubic-bezier(.2,1.4,.4,1) both}
+  .rv .rays{position:absolute;left:50%;top:96px;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;
+    background:repeating-conic-gradient(var(--tint) 0 9deg,transparent 9deg 18deg);opacity:.75;animation:rv-spin 14s cubic-bezier(0,0,1,1) infinite;pointer-events:none}
+  .rv>*:not(.rays){position:relative}
+  .rv .glyph{width:120px;height:120px;margin:0 auto;display:block;background:#fff;border:3px solid var(--ink);border-radius:50%;padding:10px;animation:rv-glyph .7s .15s cubic-bezier(.2,1.5,.4,1) both}
+  .rv .kick{margin-top:14px;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+  .rv h2{margin:2px 0 8px;font-size:30px}
+  .rv .ranks{display:flex;justify-content:center;align-items:center;gap:10px;font-size:15px;font-weight:800}
+  .rv .old{color:var(--ink3);text-decoration:line-through;text-decoration-thickness:2px}
+  .rv .new{animation:rv-stamp .45s .55s cubic-bezier(.2,1.6,.4,1) both;font-size:14px;padding:3px 12px}
+  .rv .meta{font-size:13.5px;color:var(--ink2);margin:12px 0 4px}
+  .rv .why{font-size:13.5px;color:var(--ink2);margin:0 0 16px;background:var(--ground);border-radius:8px;padding:8px 10px}
+  .rv .why b{color:var(--acc);font-family:var(--mono)}
+  .rv .queue{display:block;margin-top:8px;font-size:12px;color:var(--ink3);min-height:1em}
+  @keyframes rv-pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+  @keyframes rv-glyph{from{transform:scale(.2) rotate(-120deg)}to{transform:none}}
+  @keyframes rv-stamp{0%{transform:scale(2.4);opacity:0}100%{transform:scale(1);opacity:1}}
+  @keyframes rv-spin{to{transform:rotate(360deg)}}
+  @media (prefers-reduced-motion:reduce){.rv,.rv .glyph,.rv .new,.rv .rays{animation:none}}
+
+  /* the text version: plain HTML, readable with JavaScript off */
+  #text{max-width:760px;margin:24px auto 0;padding:24px 20px 48px;font-size:15.5px;line-height:1.55;color:var(--ink2)}
+  #text h2{font-size:20px;color:var(--ink);margin:0 0 4px}
+  #text .tvlead{font-size:13px;color:var(--ink3);margin:0 0 14px}
+  #text ol{padding-left:22px}
+  #text li{margin-bottom:6px}
+  #text b,#text strong{color:var(--ink)}
+  #text code{font-family:var(--mono);font-size:13.5px;color:var(--ink)}
+  #text a{color:var(--ink);text-decoration-color:var(--acc);text-decoration-thickness:2px;text-underline-offset:3px}
+  #text nav{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:18px;font-weight:700}
+
+  @media (max-width:520px){
+    main{padding:20px 14px 8px}
+    h1{font-size:25px}
+    .lead{padding:14px}
+    .lead .glyph{width:64px;height:64px;flex-basis:64px}
+    .lead h2{font-size:21px}
+    .grid{grid-template-columns:1fr}
+    .recent li{grid-template-columns:62px 1fr}
+    .recent li span:last-child{grid-column:2}
+    .rv h2{font-size:26px}
+  }
+</style>
+<noscript><style>#board{display:none}</style></noscript>
+</head>
+<body>
+<main id="board" aria-live="polite"></main>
+
+<section id="text" aria-labelledby="tv">
+  <noscript><p><strong>The workshop board needs JavaScript to draw.</strong> This is the same board in words.</p></noscript>
+  <!-- __TEXT_VERSION__ -->
+</section>
+
+<div id="reveal" role="dialog" aria-labelledby="rv-name"></div>
+
+<script type="application/json" id="board-data">__BOARD_DATA__</script>
+<script>
+"use strict";
+const DATA = JSON.parse(document.getElementById("board-data").textContent);
+const $ = (sel, root = document) => root.querySelector(sel);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt = n => Number(n).toLocaleString("en-US");
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+// "25 Apr", plus the year when it isn't the year of the newest entry
+const day = (ts, withYear) => !ts ? "never" : `${+ts.slice(8,10)} ${MONTHS[+ts.slice(5,7)-1]}` +
+  (withYear || ts.slice(0,4) !== (DATA.as_of || "").slice(0,4) ? ` ${ts.slice(0,4)}` : "");
+
+// ---- glyphs: one original geometric mark per craft, drawn in a 48x48 box --------
+const INK = "#15171C", ACC = "#6A4CF5", TINT = "#DCD4FF";
+const S = `stroke="${INK}" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"`;
+const GLYPHS = {
+  Lead: () => {  // a ring with one dot per craft, and the centre the crew averages to
+    const n = DATA.crew.length;
+    const dots = DATA.crew.map((_, i) => { const a = -Math.PI / 2 + i * 2 * Math.PI / n;
+      return `<circle cx="${(24 + 17 * Math.cos(a)).toFixed(1)}" cy="${(24 + 17 * Math.sin(a)).toFixed(1)}" r="3.6" fill="${INK}"/>`; }).join("");
+    return `<circle cx="24" cy="24" r="17" fill="${TINT}" ${S}/>${dots}<circle cx="24" cy="24" r="6" fill="${ACC}" ${S}/>`;
+  },
+  Smith: () => `<path d="M24 5l3 4-3 4-3-4z" fill="${ACC}" ${S}/><path d="M7 17h34l-5 6h-7v6l6 9H12l6-9v-6h-6z" fill="${TINT}" ${S}/><path d="M9 41h30" ${S}/>`,
+  Skeptic: () => `<circle cx="20" cy="20" r="12" fill="${TINT}" ${S}/><path d="M29 29l11 11" stroke="${INK}" stroke-width="5" stroke-linecap="round"/><path d="M15.5 15.5l9 9M24.5 15.5l-9 9" stroke="${ACC}" stroke-width="3.2" stroke-linecap="round"/>`,
+  Cartographer: () => `<circle cx="24" cy="24" r="18" fill="${TINT}" ${S}/><path d="M24 6l4 14 14 4-14 4-4 14-4-14-14-4 14-4z" fill="${ACC}" ${S}/><circle cx="24" cy="24" r="2.4" fill="#fff"/>`,
+  Keeper: () => `<rect x="7" y="8" width="34" height="9" rx="2" fill="${TINT}" ${S}/><rect x="7" y="20" width="34" height="9" rx="2" fill="${ACC}" ${S}/><rect x="7" y="32" width="34" height="9" rx="2" fill="${TINT}" ${S}/><path d="M21 12.5h6M21 24.5h6M21 36.5h6" ${S}/>`,
+  Scribe: () => `<path d="M24 43L12 23l6-17h12l6 17z" fill="${TINT}" ${S}/><path d="M24 43V26" ${S}/><circle cx="24" cy="22" r="3.4" fill="${ACC}" ${S}/><path d="M18 6h12" stroke="${INK}" stroke-width="4" stroke-linecap="round"/>`,
+  Watch: () => `<circle cx="24" cy="24" r="18" fill="${TINT}" ${S}/><circle cx="24" cy="24" r="9" fill="${ACC}" ${S}/><path d="M24 24V9M24 2.5v3M24 42.5v3M2.5 24h3M42.5 24h3" ${S}/><circle cx="24" cy="24" r="2.4" fill="${INK}"/>`,
+  Assayer: () => `<path d="M24 8v32M15 41h18M8 15h32" ${S}/><path d="M12 15l-5 11h10zM36 15l-5 11h10z" fill="none" ${S} stroke-width="1.8"/><path d="M5 26a7 7 0 0 0 14 0zM29 26a7 7 0 0 0 14 0z" fill="${TINT}" ${S}/><circle cx="24" cy="8" r="3" fill="${ACC}" ${S}/>`,
+};
+// A craft added to roster.md with no glyph yet still gets one: a hexagon with its initial.
+const fallback = name => `<path d="M24 5l16.5 9.5v19L24 43 7.5 33.5v-19z" fill="${TINT}" ${S}/><text x="24" y="30" text-anchor="middle" font-size="17" font-weight="900" font-family="system-ui,sans-serif" fill="${INK}">${esc(name[0] || "?")}</text>`;
+const glyph = (name, cls = "glyph") =>
+  `<svg class="${cls}" viewBox="0 0 48 48" role="img" aria-label="${esc(name)}">${(GLYPHS[name] || (() => fallback(name)))()}</svg>`;
+
+// ---- pieces shared by the Lead and the cards -------------------------------------
+const rankChip = (p, extra = "") => `<span class="rank r${p.rank_index}${extra}">${esc(p.rank)}</span>`;
+function progress(p) {
+  const span = p.level_next - p.level_floor;
+  const pct = Math.max(2, Math.min(100, 100 * (p.xp - p.level_floor) / span));
+  const toRank = p.next_rank ? ` · ${esc(p.next_rank.rank)} at level ${p.next_rank.level}` : " · top rank";
+  return `<div class="lvl"><b>Level ${p.level}</b><span>${fmt(p.xp)} XP</span></div>
+    <div class="bar" role="progressbar" aria-valuemin="${p.level_floor}" aria-valuemax="${p.level_next}" aria-valuenow="${p.xp}"><i style="width:${pct.toFixed(1)}%"></i></div>
+    <div class="next">${fmt(p.level_next - p.xp)} XP to level ${p.level + 1}${toRank}</div>
+    <ol class="pips" aria-label="ranks reached">${DATA.ranks.map((r, i) => `<li class="${i <= p.rank_index ? "on" : ""}" title="${esc(r.rank)}"></li>`).join("")}</ol>`;
+}
+
+function leadPanel(L) {
+  return `<section class="lead box" aria-label="The Lead">
+    ${glyph("Lead")}
+    <div class="who">
+      <h2>The Lead ${rankChip(L)}</h2>
+      ${progress(L)}
+      <div class="math">The Lead never earns XP. It is the crew's average:
+        <code>${fmt(L.sum)} XP ÷ ${L.n} = ${fmt(L.xp)}</code>. It sent work ${L.dispatched} times.</div>
+    </div></section>`;
+}
+
+function card(p) {
+  const awards = p.recent.map(a => `<li><b>+${a.xp}</b><span>${esc(a.why)} <time>${day(a.ts)}</time></span></li>`).join("");
+  const replay = p.crossed.length ? `<button class="link" data-replay="${esc(p.name)}">Replay last rank-up</button>` : "";
+  return `<article class="card box">
+    <div class="top">${glyph(p.name)}
+      <div><h3>${esc(p.name)}</h3><div class="craft">${esc(p.craft)} · <code>${esc(p.agent)}</code></div></div>
+      ${rankChip(p)}</div>
+    <p class="does">${esc(p.does)}</p>
+    ${progress(p)}
+    <ul class="awards" aria-label="latest awards">${awards || "<li><b></b><span>No awards yet.</span></li>"}</ul>
+    <div class="foot"><span>Dispatched ${p.dispatched}× · last ${day(p.last_dispatched)}</span>${replay}</div>
+  </article>`;
+}
+
+function handoffStrip(h) {
+  const pill = t => `<span class="pair">${glyph(t.from, "")}<span>${esc(t.from)}</span><span class="arrow">→</span>${glyph(t.to, "")}<span>${esc(t.to)}</span><span class="n">${t.count}</span></span>`;
+  const row = e => `<li><time>${day(e.ts)}</time><span><b>${esc(e.from)}</b> → <b>${esc(e.to)}</b></span><span>${esc(e.task || "")}</span></li>`;
+  return `<h2>Hand-offs</h2>
+    <section class="handoffs box" aria-label="Hand-offs">
+      <p class="note">${h.total} times a craft sent work straight to another craft, without going back through the Lead. Most frequent first.</p>
+      <div class="pairs">${h.pairs.map(pill).join("") || "None yet."}</div>
+      <ol class="recent" aria-label="latest hand-offs">${h.recent.map(row).join("")}</ol>
+    </section>`;
+}
+
+function draw() {
+  const c = DATA.counts;
+  $("#board").innerHTML = `
+    <div class="kicker">The workshop · a board for Claude Code agents</div>
+    <h1>${c.crew} crafts, <em>one Lead</em>, and every level earned in the log.</h1>
+    <p class="sub">Invented data. Every number here is computed by <code>generate.py</code> from three files in
+      <code>crew/</code>: ${c.awards} awards, ${c.dispatches} dispatches, as of ${day(DATA.as_of, true)}.</p>
+    <div id="waiting" class="box"><b></b><button class="btn" id="watch">Watch it</button></div>
+    ${leadPanel(DATA.lead)}
+    <h2>The crew</h2>
+    <div class="grid">${DATA.crew.map(card).join("")}</div>
+    ${handoffStrip(DATA.handoffs)}`;
+}
+
+// ---- the reveal: one pop-up per rank-up nobody has watched -------------------------
+// Two memories decide what is "unwatched": crew/reveals_seen.json (the CLI's, already
+// applied by generate.py to DATA.pending) and this browser's localStorage (applied here).
+const SEEN_KEY = "agent-dashboard:seen";
+const keyOf = r => `${r.name}|${r.rank}`;
+function seenHere() { try { return new Set(JSON.parse(localStorage.getItem(SEEN_KEY) || "[]")); } catch { return new Set(); } }
+function markSeen(r) {
+  const s = seenHere(); s.add(keyOf(r));
+  try { localStorage.setItem(SEEN_KEY, JSON.stringify([...s])); } catch { /* private mode: it will show again */ }
+}
+const waiting = () => { const s = seenHere(); return DATA.pending.filter(r => !s.has(keyOf(r))); };
+
+let current = null;
+function showReveal(r, replay = false) {
+  current = { r, replay };
+  const who = r.name === "Lead" ? "The Lead" : r.name;
+  const cause = r.name === "Lead"
+    ? `The crew's average crossed it when <b>${esc(r.by)}</b> got <b>+${r.award_xp}</b>: “${esc(r.why)}”`
+    : `Crossed with <b>+${r.award_xp}</b>: “${esc(r.why)}”`;
+  const more = replay ? "A replay: it was already watched." : (waiting().length > 1 ? `${waiting().length - 1} more waiting` : "");
+  const box = $("#reveal");
+  box.innerHTML = `<div class="rv box">
+      <div class="rays"></div>
+      ${glyph(r.name)}
+      <div class="kick">Rank up</div>
+      <h2 id="rv-name">${esc(who)}</h2>
+      <div class="ranks"><span class="old">${esc(r.previous)}</span><span>→</span><span class="rank r${DATA.ranks.findIndex(x => x.rank === r.rank)} new">${esc(r.rank)}</span></div>
+      <p class="meta">Level ${r.level} · ${fmt(r.xp)} XP · ${day(r.ts)}</p>
+      <p class="why">${cause}</p>
+      <button class="btn" id="rv-ok">Got it</button>
+      <span class="queue">${more}</span>
+    </div>`;
+  box.classList.add("on");
+  $("#rv-ok").focus();
+}
+function closeReveal() {
+  if (!current) return;
+  if (!current.replay) markSeen(current.r);
+  current = null;
+  $("#reveal").classList.remove("on");
+  refreshWaiting();
+  const next = waiting()[0];   // queued rank-ups play one after the other
+  if (next) setTimeout(() => showReveal(next), 250);
+}
+function refreshWaiting() {
+  const w = waiting(), bar = $("#waiting");
+  bar.classList.toggle("on", w.length > 0);
+  $("b", bar).textContent = w.length === 1 ? "1 rank-up waiting to be watched" : `${w.length} rank-ups waiting to be watched`;
+}
+
+draw();
+refreshWaiting();
+document.addEventListener("click", ev => {
+  const t = ev.target.closest("[data-replay], #watch, #rv-ok");
+  if (t && t.id === "rv-ok") return closeReveal();
+  if (t && t.id === "watch") return waiting()[0] && showReveal(waiting()[0]);
+  if (t && t.dataset.replay) {
+    const p = DATA.crew.find(x => x.name === t.dataset.replay);
+    return showReveal(Object.assign({ name: p.name }, p.crossed[p.crossed.length - 1]), true);
+  }
+  if (ev.target.id === "reveal") closeReveal();   // a click on the dimmed background
+});
+document.addEventListener("keydown", ev => { if (ev.key === "Escape") closeReveal(); });
+// Fire the first unwatched rank-up on open (?quiet in the address keeps the page still).
+if (!/[?&]quiet\b/.test(location.search) && waiting().length) showReveal(waiting()[0]);
+</script>
+</body>
+</html>

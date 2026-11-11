@@ -1,0 +1,84 @@
+{"ts": "2025-03-03T10:26:00Z", "from": "Lead", "to": "Watch", "task": "check the scheduled tasks"}
+{"ts": "2025-03-04T10:44:00Z", "from": "Cartographer", "to": "Assayer", "task": "how many notes per theme?"}
+{"ts": "2025-03-04T16:53:00Z", "from": "Skeptic", "to": "Smith", "task": "the test is wrong, rewrite it"}
+{"ts": "2025-03-05T15:02:00Z", "from": "Lead", "to": "Cartographer", "task": "sort this week's feedback"}
+{"ts": "2025-03-05T15:26:00Z", "from": "Lead", "to": "Scribe", "task": "shorten the update"}
+{"ts": "2025-03-06T16:09:00Z", "from": "Lead", "to": "Skeptic", "task": "read the release branch"}
+{"ts": "2025-03-07T08:02:00Z", "from": "Lead", "to": "Smith", "task": "fix the date filter"}
+{"ts": "2025-03-07T17:02:00Z", "from": "Keeper", "to": "Scribe", "task": "turn this decision into a note people read"}
+{"ts": "2025-03-08T09:53:00Z", "from": "Lead", "to": "Cartographer", "task": "rank the backlog"}
+{"ts": "2025-03-09T10:44:00Z", "from": "Lead", "to": "Cartographer", "task": "rank the backlog"}
+{"ts": "2025-03-09T18:17:00Z", "from": "Lead", "to": "Scribe", "task": "draft the release note"}
+{"ts": "2025-03-10T09:09:00Z", "from": "Lead", "to": "Skeptic", "task": "check the migration"}
+{"ts": "2025-03-10T16:26:00Z", "from": "Lead", "to": "Watch", "task": "check the scheduled tasks"}
+{"ts": "2025-03-11T13:26:00Z", "from": "Cartographer", "to": "Smith", "task": "build the fix for theme 1"}
+{"ts": "2025-03-12T10:44:00Z", "from": "Lead", "to": "Watch", "task": "why did the nightly job stop?"}
+{"ts": "2025-03-12T17:02:00Z", "from": "Lead", "to": "Cartographer", "task": "rank the backlog"}
+{"ts": "2025-03-13T17:17:00Z", "from": "Smith", "to": "Keeper", "task": "record why we chose this"}
+{"ts": "2025-03-14T13:38:00Z", "from": "Lead", "to": "Keeper", "task": "have we seen this before?"}
+{"ts": "2025-03-14T14:53:00Z", "from": "Lead", "to": "Cartographer", "task": "rank the backlog"}
+{"ts": "2025-03-15T11:38:00Z", "from": "Cartographer", "to": "Smith", "task": "build the fix for theme 1"}
+{"ts": "2025-03-15T11:53:00Z", "from": "Lead", "to": "Scribe", "task": "draft the release note"}
+{"ts": "2025-03-16T11:38:00Z", "from": "Lead", "to": "Watch", "task": "why did the nightly job stop?"}
+{"ts": "2025-03-17T08:53:00Z", "from": "Lead", "to": "Cartographer", "task": "rank the backlog"}
+{"ts": "2025-03-17T11:44:00Z", "from": "Lead", "to": "Assayer", "task": "check this number"}
+{"ts": "2025-03-18T16:53:00Z", "from": "Keeper", "to": "Scribe", "task": "turn this decision into a note people read"}
+{"ts": "2025-03-19T14:02:00Z", "from": "Lead", "to": "Cartographer", "task": "sort this week's feedback"}
+{"ts": "2025-03-19T16:09:00Z", "from": "Lead", "to": "Keeper", "task": "tidy the notes index"}
+{"ts": "2025-03-20T18:38:00Z", "from": "Cartographer", "to": "Smith", "task": "the top theme needs a change"}
+{"ts": "2025-03-21T14:53:00Z", "from": "Lead", "to": "Assayer", "task": "count the affected rows"}
+{"ts": "2025-03-21T15:53:00Z", "from": "Smith", "to": "Skeptic", "task": "review my change"}
+{"ts": "2025-03-22T09:53:00Z", "from": "Keeper", "to": "Scribe", "task": "turn this decision into a note people read"}
+{"ts": "2025-03-22T16:09:00Z", "from": "Lead", "to": "Scribe", "task": "shorten the update"}
+{"ts": "2025-03-23T16:26:00Z", "from": "Smith", "to": "Skeptic", "task": "review my change"}
+{"ts": "2025-03-24T10:09:00Z", "from": "Smith", "to": "Keeper", "task": "record why we chose this"}
+{"ts": "2025-03-24T10:38:00Z", "from": "Watch", "to": "Smith", "task": "the token refresh needs a fix"}
+{"ts": "2025-03-25T18:53:00Z", "from": "Lead", "to": "Assayer", "task": "check this number"}
+{"ts": "2025-03-26T08:02:00Z", "from": "Cartographer", "to": "Smith", "task": "build the fix for theme 1"}
+{"ts": "2025-03-26T14:09:00Z", "from": "Lead", "to": "Watch", "task": "why did the nightly job stop?"}
+{"ts": "2025-03-27T11:53:00Z", "from": "Assayer", "to": "Scribe", "task": "write up these figures"}
+{"ts": "2025-03-27T17:44:00Z", "from": "Watch", "to": "Smith", "task": "the token refresh needs a fix"}
+{"ts": "2025-03-28T13:09:00Z", "from": "Lead", "to": "Keeper", "task": "have we seen this before?"}
+{"ts": "2025-03-29T10:02:00Z", "from": "Watch", "to": "Smith", "task": "the token refresh needs a fix"}
+{"ts": "2025-03-29T18:17:00Z", "from": "Lead", "to": "Cartographer", "task": "rank the backlog"}
+{"ts": "2025-03-30T16:44:00Z", "from": "Lead", "to": "Assayer", "task": "check this number"}
+{"ts": "2025-03-31T16:53:00Z", "from": "Lead", "to": "Skeptic", "task": "review the parser"}
+{"ts": "2025-03-31T17:09:00Z", "from": "Lead", "to": "Watch", "task": "why did the nightly job stop?"}
+{"ts": "2025-04-01T10:09:00Z", "from": "Lead", "to": "Skeptic", "task": "read the release branch"}
+{"ts": "2025-04-02T09:38:00Z", "from": "Lead", "to": "Smith", "task": "wire the new page"}
+{"ts": "2025-04-02T09:38:00Z", "from": "Lead", "to": "Smith", "task": "fix the date filter"}
+{"ts": "2025-04-03T13:02:00Z", "from": "Skeptic", "to": "Smith", "task": "the test is wrong, rewrite it"}
+{"ts": "2025-04-03T17:02:00Z", "from": "Skeptic", "to": "Smith", "task": "two findings to fix"}
+{"ts": "2025-04-04T16:17:00Z", "from": "Lead", "to": "Assayer", "task": "count the affected rows"}
+{"ts": "2025-04-05T13:26:00Z", "from": "Lead", "to": "Watch", "task": "check the scheduled tasks"}
+{"ts": "2025-04-05T17:09:00Z", "from": "Smith", "to": "Skeptic", "task": "try to break the importer"}
+{"ts": "2025-04-06T17:09:00Z", "from": "Cartographer", "to": "Smith", "task": "build the fix for theme 1"}
+{"ts": "2025-04-07T09:44:00Z", "from": "Lead", "to": "Cartographer", "task": "sort this week's feedback"}
+{"ts": "2025-04-07T15:02:00Z", "from": "Lead", "to": "Scribe", "task": "shorten the update"}
+{"ts": "2025-04-08T10:44:00Z", "from": "Lead", "to": "Assayer", "task": "check this number"}
+{"ts": "2025-04-08T11:44:00Z", "from": "Lead", "to": "Keeper", "task": "have we seen this before?"}
+{"ts": "2025-04-09T10:17:00Z", "from": "Assayer", "to": "Scribe", "task": "write up these figures"}
+{"ts": "2025-04-10T11:44:00Z", "from": "Keeper", "to": "Scribe", "task": "turn this decision into a note people read"}
+{"ts": "2025-04-10T16:09:00Z", "from": "Smith", "to": "Keeper", "task": "record why we chose this"}
+{"ts": "2025-04-11T10:44:00Z", "from": "Lead", "to": "Scribe", "task": "shorten the update"}
+{"ts": "2025-04-12T09:44:00Z", "from": "Lead", "to": "Keeper", "task": "tidy the notes index"}
+{"ts": "2025-04-12T14:26:00Z", "from": "Lead", "to": "Cartographer", "task": "rank the backlog"}
+{"ts": "2025-04-13T17:26:00Z", "from": "Lead", "to": "Scribe", "task": "draft the release note"}
+{"ts": "2025-04-14T15:17:00Z", "from": "Lead", "to": "Watch", "task": "check the scheduled tasks"}
+{"ts": "2025-04-14T17:02:00Z", "from": "Lead", "to": "Skeptic", "task": "review the parser"}
+{"ts": "2025-04-15T09:02:00Z", "from": "Lead", "to": "Cartographer", "task": "sort this week's feedback"}
+{"ts": "2025-04-15T10:17:00Z", "from": "Skeptic", "to": "Smith", "task": "the test is wrong, rewrite it"}
+{"ts": "2025-04-16T13:26:00Z", "from": "Lead", "to": "Skeptic", "task": "read the release branch"}
+{"ts": "2025-04-17T13:02:00Z", "from": "Cartographer", "to": "Smith", "task": "build the fix for theme 1"}
+{"ts": "2025-04-17T18:26:00Z", "from": "Smith", "to": "Skeptic", "task": "review my change"}
+{"ts": "2025-04-18T15:02:00Z", "from": "Lead", "to": "Cartographer", "task": "sort this week's feedback"}
+{"ts": "2025-04-19T09:17:00Z", "from": "Cartographer", "to": "Assayer", "task": "check the ranking numbers"}
+{"ts": "2025-04-19T09:53:00Z", "from": "Lead", "to": "Cartographer", "task": "sort this week's feedback"}
+{"ts": "2025-04-20T08:17:00Z", "from": "Smith", "to": "Keeper", "task": "record why we chose this"}
+{"ts": "2025-04-20T13:38:00Z", "from": "Lead", "to": "Skeptic", "task": "read the release branch"}
+{"ts": "2025-04-21T11:02:00Z", "from": "Smith", "to": "Keeper", "task": "record why we chose this"}
+{"ts": "2025-04-22T08:09:00Z", "from": "Lead", "to": "Cartographer", "task": "rank the backlog"}
+{"ts": "2025-04-22T13:38:00Z", "from": "Skeptic", "to": "Smith", "task": "the test is wrong, rewrite it"}
+{"ts": "2025-04-23T16:38:00Z", "from": "Smith", "to": "Skeptic", "task": "try to break the importer"}
+{"ts": "2025-04-24T08:02:00Z", "from": "Lead", "to": "Smith", "task": "fix the date filter"}
+{"ts": "2025-04-24T14:53:00Z", "from": "Lead", "to": "Smith", "task": "add the retry"}

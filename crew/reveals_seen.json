@@ -1,0 +1,28 @@
+{
+  "Assayer": [],
+  "Cartographer": [
+    "Journeyman"
+  ],
+  "Keeper": [
+    "Journeyman"
+  ],
+  "Lead": [
+    "Journeyman",
+    "Artisan"
+  ],
+  "Scribe": [
+    "Journeyman"
+  ],
+  "Skeptic": [
+    "Journeyman",
+    "Artisan"
+  ],
+  "Smith": [
+    "Journeyman",
+    "Artisan",
+    "Master"
+  ],
+  "Watch": [
+    "Journeyman"
+  ]
+}

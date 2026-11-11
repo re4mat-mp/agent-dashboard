@@ -1,0 +1,52 @@
+{"ts": "2025-03-03T15:05:00Z", "name": "Assayer", "xp": 100, "why": "Re-counted a number before it went into a summary"}
+{"ts": "2025-03-04T10:41:00Z", "name": "Cartographer", "xp": 400, "why": "Grouped 120 feedback notes into 6 themes, ranked by harm"}
+{"ts": "2025-03-05T09:41:00Z", "name": "Skeptic", "xp": 300, "why": "Caught an off-by-one in the date range before it shipped"}
+{"ts": "2025-03-06T13:34:00Z", "name": "Scribe", "xp": 200, "why": "Wrote the release note people actually read"}
+{"ts": "2025-03-07T16:20:00Z", "name": "Smith", "xp": 400, "why": "Turned a 40-step manual setup into one script"}
+{"ts": "2025-03-08T17:41:00Z", "name": "Assayer", "xp": 100, "why": "Said how sure it was about each figure"}
+{"ts": "2025-03-09T17:20:00Z", "name": "Smith", "xp": 350, "why": "Rebuilt the settings page so it loads in under a second"}
+{"ts": "2025-03-10T14:12:00Z", "name": "Skeptic", "xp": 400, "why": "Found a test that passed for the wrong reason"}
+{"ts": "2025-03-11T11:50:00Z", "name": "Cartographer", "xp": 300, "why": "Found that one theme was half the complaints"}
+{"ts": "2025-03-12T13:05:00Z", "name": "Cartographer", "xp": 250, "why": "Mapped which errors come back after a fix"}
+{"ts": "2025-03-13T14:41:00Z", "name": "Watch", "xp": 300, "why": "Noticed the nightly job had stopped without an error"}
+{"ts": "2025-03-14T17:20:00Z", "name": "Keeper", "xp": 250, "why": "Merged three notes that said the same thing"}
+{"ts": "2025-03-15T17:20:00Z", "name": "Watch", "xp": 250, "why": "Traced a missing report to an expired token"}
+{"ts": "2025-03-16T10:05:00Z", "name": "Smith", "xp": 300, "why": "Fixed the timezone bug in the weekly report"}
+{"ts": "2025-03-17T16:12:00Z", "name": "Smith", "xp": 450, "why": "Shipped the export rewrite and showed it running"}
+{"ts": "2025-03-18T15:12:00Z", "name": "Skeptic", "xp": 250, "why": "Broke the new parser with an empty file"}
+{"ts": "2025-03-19T17:34:00Z", "name": "Skeptic", "xp": 500, "why": "Stopped a secret from being committed"}
+{"ts": "2025-03-20T09:50:00Z", "name": "Smith", "xp": 250, "why": "Added a retry to the flaky upload step"}
+{"ts": "2025-03-21T10:41:00Z", "name": "Skeptic", "xp": 350, "why": "Showed the cache never expired"}
+{"ts": "2025-03-22T15:20:00Z", "name": "Skeptic", "xp": 450, "why": "Planted ten small bugs; the tests missed two, so two tests were added"}
+{"ts": "2025-03-23T15:41:00Z", "name": "Cartographer", "xp": 250, "why": "Split a vague complaint into three fixable ones"}
+{"ts": "2025-03-24T17:41:00Z", "name": "Keeper", "xp": 300, "why": "Found two rules that disagreed and asked which one wins"}
+{"ts": "2025-03-25T17:05:00Z", "name": "Scribe", "xp": 250, "why": "Turned a two-page update into five lines"}
+{"ts": "2025-03-26T10:20:00Z", "name": "Assayer", "xp": 100, "why": "Found a query that counted the same row twice"}
+{"ts": "2025-03-27T17:50:00Z", "name": "Smith", "xp": 500, "why": "Built the search filter people kept asking for"}
+{"ts": "2025-03-28T10:05:00Z", "name": "Scribe", "xp": 250, "why": "Drafted a reply to a hard question, kept to the facts"}
+{"ts": "2025-03-29T14:50:00Z", "name": "Skeptic", "xp": 400, "why": "Flagged a migration that would lock the table for minutes"}
+{"ts": "2025-03-30T17:20:00Z", "name": "Watch", "xp": 200, "why": "Found the scheduled task that ran but did nothing"}
+{"ts": "2025-03-31T16:50:00Z", "name": "Smith", "xp": 300, "why": "Made the importer skip bad rows instead of stopping"}
+{"ts": "2025-04-01T15:05:00Z", "name": "Keeper", "xp": 200, "why": "Moved stale facts out of the index"}
+{"ts": "2025-04-02T17:20:00Z", "name": "Skeptic", "xp": 300, "why": "Found the retry that retried forever"}
+{"ts": "2025-04-03T11:41:00Z", "name": "Keeper", "xp": 350, "why": "Answered 'have we seen this before?' with the old fix"}
+{"ts": "2025-04-05T10:34:00Z", "name": "Skeptic", "xp": 350, "why": "Proved the fix only worked on the first run"}
+{"ts": "2025-04-06T09:12:00Z", "name": "Watch", "xp": 300, "why": "Caught a disk filling up before it broke the build"}
+{"ts": "2025-04-07T14:12:00Z", "name": "Cartographer", "xp": 400, "why": "Drew the before-and-after for the top theme"}
+{"ts": "2025-04-08T13:34:00Z", "name": "Cartographer", "xp": 300, "why": "Re-ranked the backlog with this month's notes"}
+{"ts": "2025-04-09T16:34:00Z", "name": "Smith", "xp": 200, "why": "Removed a dead dependency; the build got faster"}
+{"ts": "2025-04-10T10:12:00Z", "name": "Smith", "xp": 600, "why": "Moved the slow page to a cached query and measured it"}
+{"ts": "2025-04-11T17:34:00Z", "name": "Smith", "xp": 350, "why": "Wrote the migration and its rollback, ran both"}
+{"ts": "2025-04-12T14:12:00Z", "name": "Keeper", "xp": 200, "why": "Gave every note a one-line reason"}
+{"ts": "2025-04-13T16:41:00Z", "name": "Watch", "xp": 250, "why": "Explained why the backup was a day behind"}
+{"ts": "2025-04-14T14:50:00Z", "name": "Keeper", "xp": 300, "why": "Trimmed the index back under its size budget"}
+{"ts": "2025-04-15T16:20:00Z", "name": "Skeptic", "xp": 250, "why": "Read the error path nobody had tested"}
+{"ts": "2025-04-16T16:12:00Z", "name": "Smith", "xp": 400, "why": "Fixed the empty-state that showed a blank screen"}
+{"ts": "2025-04-17T11:05:00Z", "name": "Keeper", "xp": 300, "why": "Wrote down a decision before it was forgotten"}
+{"ts": "2025-04-18T11:12:00Z", "name": "Smith", "xp": 250, "why": "Split a 900-line file into four readable ones"}
+{"ts": "2025-04-19T13:50:00Z", "name": "Smith", "xp": 450, "why": "Shipped the offline mode with a test for each state"}
+{"ts": "2025-04-20T13:05:00Z", "name": "Scribe", "xp": 200, "why": "Rewrote the setup steps so a newcomer finished them"}
+{"ts": "2025-04-21T17:41:00Z", "name": "Skeptic", "xp": 400, "why": "Spotted two rules that contradicted each other"}
+{"ts": "2025-04-22T11:20:00Z", "name": "Smith", "xp": 400, "why": "Rebuilt the onboarding checklist from the notes"}
+{"ts": "2025-04-23T14:05:00Z", "name": "Skeptic", "xp": 350, "why": "Caught a rounding error in the totals"}
+{"ts": "2025-04-25T16:20:00Z", "name": "Cartographer", "xp": 400, "why": "Found the theme everyone had missed: a slow first load"}
