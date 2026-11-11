@@ -240,7 +240,7 @@ repo in a temp folder, so your data is never touched.
 | the template's tokens survive | an edit can't silently drop the data |
 | a `</script>` in a reason can't break the page | data never becomes markup |
 | the text version escapes the roster | a `<tag>` in a description stays text |
-| the page's `esc()` replaces `& < > " '`, and every drawn field goes through it | the same, for the drawn board |
+| the page's `esc()` replaces `& < > " '`, and the main card fields (name, craft, why, task…) are drawn through it; a field it does not list is not checked | the same, for the drawn board |
 | the transcript reader keeps three fields | your descriptions stay on your machine |
 
 A green test is only worth something if it can go red. Before trusting one, break the line it guards (make the
