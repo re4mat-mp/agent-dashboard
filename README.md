@@ -261,3 +261,5 @@ Lead divide by one more, or let a plain build append to the log) and watch it fa
 | [`CUT.md`](CUT.md) | What this public version keeps from my own board, what it leaves out, and why |
 
 MIT licensed. Take the mechanisms, change the theme, make it look like your crew.
+
+← [All the pieces](https://re4mat-mp.github.io/#pieces): the other things I built, on one page.
